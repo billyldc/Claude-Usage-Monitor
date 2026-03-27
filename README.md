@@ -13,9 +13,11 @@ An Alfred workflow to quickly check your Claude (claude.ai) account usage, inclu
 
 ## Demo
 English version:
+
 ![Demo](.figures/screenshot_en.png)
 
 Chinese version:
+
 ![Demo](.figures/screenshot_zh.png)
 
 ## Installation
