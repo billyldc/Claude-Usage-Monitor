@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>bundleid</key>
+	<string>com.claude.usage-monitor</string>
+	<key>connections</key>
+	<dict>
+		<key>A1B2C3D4-E5F6-7890-ABCD-EF1234567890</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>B2C3D4E5-F6A7-8901-BCDE-F12345678901</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+	</dict>
+	<key>createdby</key>
+	<string>Claude</string>
+	<key>description</key>
+	<string>查看 Claude 账户用量 (5小时/7天/Opus/Sonnet)</string>
+	<key>disabled</key>
+	<false/>
+	<key>name</key>
+	<string>Claude Usage Monitor</string>
+	<key>objects</key>
+	<array>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>browser</key>
+				<string></string>
+				<key>skipqueryencode</key>
+				<false/>
+				<key>skipvarencode</key>
+				<false/>
+				<key>spaces</key>
+				<string></string>
+				<key>url</key>
+				<string>{query}</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.openurl</string>
+			<key>uid</key>
+			<string>B2C3D4E5-F6A7-8901-BCDE-F12345678901</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>alfredfiltersresults</key>
+				<false/>
+				<key>alfredfiltersresultsmatchmode</key>
+				<integer>0</integer>
+				<key>argumenttreatemptyqueryasnil</key>
+				<false/>
+				<key>argumenttrimmode</key>
+				<integer>0</integer>
+				<key>argumenttype</key>
+				<integer>1</integer>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>keyword</key>
+				<string>claude</string>
+				<key>queuedelaycustom</key>
+				<integer>3</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<false/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>queuemode</key>
+				<integer>1</integer>
+				<key>runningsubtext</key>
+				<string>正在查询 Claude 用量...</string>
+				<key>script</key>
+				<string>/usr/bin/python3 usage.py "{query}"</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>subtext</key>
+				<string>查看 Claude 账户当前用量</string>
+				<key>title</key>
+				<string>Claude Usage</string>
+				<key>type</key>
+				<integer>0</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>A1B2C3D4-E5F6-7890-ABCD-EF1234567890</string>
+			<key>version</key>
+			<integer>3</integer>
+		</dict>
+	</array>
+	<key>readme</key>
+	<string>## Claude Usage Monitor
+
+输入 `claude` 快速查看你的 Claude 账户用量：
+- 🟢🟡🔴 5 小时滚动用量
+- 📊 7 天周用量
+- 🤖 Opus / Sonnet 独立用量
+
+### 认证方式 (按优先级)
+1. **Session Key (推荐)**: 浏览器打开 claude.ai → F12 → Application → Cookies → 复制 sessionKey 值，填入 Workflow 配置。更稳定，不易过期。
+2. **OAuth Token**: 手动设置，或自动从 Claude Code Keychain 读取。
+3. **Keychain 自动读取**: 已登录 Claude Code 时自动获取。
+4. **~/.claude/.credentials.json**: 从文件读取凭证。
+
+### 使用
+- 回车：打开 Claude Usage 页面
+- 最后一项回车：复制原始 JSON 数据</string>
+	<key>uidata</key>
+	<dict>
+		<key>A1B2C3D4-E5F6-7890-ABCD-EF1234567890</key>
+		<dict>
+			<key>xpos</key>
+			<real>100</real>
+			<key>ypos</key>
+			<real>100</real>
+		</dict>
+		<key>B2C3D4E5-F6A7-8901-BCDE-F12345678901</key>
+		<dict>
+			<key>xpos</key>
+			<real>380</real>
+			<key>ypos</key>
+			<real>100</real>
+		</dict>
+	</dict>
+	<key>userconfigurationconfig</key>
+	<array>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>default</key>
+				<string>zh</string>
+				<key>pairs</key>
+				<array>
+					<array>
+						<string>中文</string>
+						<string>zh</string>
+					</array>
+					<array>
+						<string>English</string>
+						<string>en</string>
+					</array>
+				</array>
+			</dict>
+			<key>description</key>
+			<string>Language / 语言</string>
+			<key>label</key>
+			<string>Language / 语言</string>
+			<key>type</key>
+			<string>popupbutton</string>
+			<key>variable</key>
+			<string>CLAUDE_USAGE_LANG</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>default</key>
+				<string></string>
+				<key>placeholder</key>
+				<string>sk-ant-sid01-... (from claude.ai Cookie)</string>
+				<key>required</key>
+				<false/>
+				<key>trim</key>
+				<true/>
+			</dict>
+			<key>description</key>
+			<string>Session Key (recommended): claude.ai → F12 → Application → Cookies → sessionKey</string>
+			<key>label</key>
+			<string>Session Key</string>
+			<key>type</key>
+			<string>textfield</string>
+			<key>variable</key>
+			<string>CLAUDE_SESSION_KEY</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>default</key>
+				<string></string>
+				<key>placeholder</key>
+				<string>sk-ant-oat01-... (auto-detect from Keychain if empty)</string>
+				<key>required</key>
+				<false/>
+				<key>trim</key>
+				<true/>
+			</dict>
+			<key>description</key>
+			<string>OAuth Token (fallback): leave empty to auto-detect from Claude Code Keychain</string>
+			<key>label</key>
+			<string>OAuth Token</string>
+			<key>type</key>
+			<string>textfield</string>
+			<key>variable</key>
+			<string>CLAUDE_OAUTH_TOKEN</string>
+		</dict>
+	</array>
+	<key>version</key>
+	<string>2.0.0</string>
+	<key>webaddress</key>
+	<string>https://github.com</string>
+</dict>
+</plist>
