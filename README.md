@@ -2,8 +2,6 @@
 
 An Alfred workflow to quickly check your Claude (claude.ai) account usage, including 5-hour / 7-day limits, per-model breakdown, and real-time service status.
 
-![screenshot](screenshot.png)
-
 ## Features
 
 - **5-Hour / 7-Day usage** with progress bars and reset timers

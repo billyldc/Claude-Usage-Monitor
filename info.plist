@@ -104,20 +104,25 @@
 	<key>readme</key>
 	<string>## Claude Usage Monitor
 
-输入 `claude` 快速查看你的 Claude 账户用量：
-- 🟢🟡🔴 5 小时滚动用量
-- 📊 7 天周用量
-- 🤖 Opus / Sonnet 独立用量
+Type `claude` in Alfred to check your Claude account usage.
+输入 `claude` 快速查看你的 Claude 账户用量。
 
-### 认证方式 (按优先级)
-1. **Session Key (推荐)**: 浏览器打开 claude.ai → F12 → Application → Cookies → 复制 sessionKey 值，填入 Workflow 配置。更稳定，不易过期。
-2. **OAuth Token**: 手动设置，或自动从 Claude Code Keychain 读取。
-3. **Keychain 自动读取**: 已登录 Claude Code 时自动获取。
-4. **~/.claude/.credentials.json**: 从文件读取凭证。
+### Features / 功能
+- 🟢🟡🔴 5-hour rolling usage / 5 小时滚动用量
+- 📊 7-day weekly usage / 7 天周用量
+- 🤖 Opus / Sonnet per-model breakdown / 模型独立用量
+- 🌐 Live service status / 实时服务状态
 
-### 使用
-- 回车：打开 Claude Usage 页面
-- 最后一项回车：复制原始 JSON 数据</string>
+### Auth Methods (by priority) / 认证方式 (按优先级)
+1. **Session Key (Recommended / 推荐)**: Open claude.ai → EditThisCookie extension → copy `sessionKey` → paste in Workflow config. Most stable, rarely expires. / 浏览器打开 claude.ai → EditThisCookie 插件 → 复制 sessionKey → 粘贴到 Workflow 配置。
+2. **OAuth Token**: Set manually, or auto-detect from Claude Code Keychain. / 手动设置，或自动从 Keychain 读取。
+3. **Keychain**: Auto-detect when Claude Code CLI is logged in. / 已登录 Claude Code 时自动获取。
+4. **~/.claude/.credentials.json**: Read from credentials file. / 从文件读取凭证。
+
+### Usage / 使用
+- Enter → Open Claude Usage page / 回车打开 Usage 页面
+- Enter on status row → Open status.claude.com / 回车打开服务状态页
+- Cmd+Enter → Copy raw JSON / ⌘+回车复制原始 JSON</string>
 	<key>uidata</key>
 	<dict>
 		<key>A1B2C3D4-E5F6-7890-ABCD-EF1234567890</key>
