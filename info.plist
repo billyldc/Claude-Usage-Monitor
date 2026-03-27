@@ -23,7 +23,7 @@
 	<key>createdby</key>
 	<string>Claude</string>
 	<key>description</key>
-	<string>查看 Claude 账户用量 (5小时/7天/Opus/Sonnet)</string>
+	<string>Check Claude account usage / 查看 Claude 账户用量</string>
 	<key>disabled</key>
 	<false/>
 	<key>name</key>
@@ -77,7 +77,7 @@
 				<key>queuemode</key>
 				<integer>1</integer>
 				<key>runningsubtext</key>
-				<string>正在查询 Claude 用量...</string>
+				<string>Fetching Claude usage... / 正在查询 Claude 用量...</string>
 				<key>script</key>
 				<string>/usr/bin/python3 usage.py "{query}"</string>
 				<key>scriptargtype</key>
@@ -85,7 +85,7 @@
 				<key>scriptfile</key>
 				<string></string>
 				<key>subtext</key>
-				<string>查看 Claude 账户当前用量</string>
+				<string>View current Claude account usage / 查看 Claude 账户当前用量</string>
 				<key>title</key>
 				<string>Claude Usage</string>
 				<key>type</key>
