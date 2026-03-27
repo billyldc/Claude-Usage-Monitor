@@ -11,6 +11,13 @@ An Alfred workflow to quickly check your Claude (claude.ai) account usage, inclu
 - **Bilingual UI**: Chinese / English switchable in settings
 - **Smart caching**: 60s usage cache, 2min status cache, stale-cache fallback on rate limits
 
+## Demo
+English version:
+![Demo](.figures/screenshot_en.png)
+
+Chinese version:
+![Demo](.figures/screenshot_zh.png)
+
 ## Installation
 
 1. Download [`Claude-Usage-Monitor.alfredworkflow`](https://github.com/billyldc/Claude-Usage-Monitor/releases/latest)
