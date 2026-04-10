@@ -7,7 +7,8 @@ An Alfred workflow to quickly check your Claude (claude.ai) account usage, inclu
 - **5-Hour / 7-Day usage** with progress bars and reset timers
 - **Per-model breakdown**: Opus, Sonnet, OAuth Apps weekly usage
 - **Live service status** from [status.claude.com](https://status.claude.com) with active incident details
-- **Multi-auth fallback**: Session Key → OAuth Token → Keychain → credentials file
+- **Multi-auth fallback**: OAuth Token → Keychain → credentials file → Session Key
+- **Auto-sync Session Key**: Chrome extension automatically extracts and syncs the `sessionKey` cookie
 - **Bilingual UI**: Chinese / English switchable in settings
 - **Smart caching**: 60s usage cache, 2min status cache, stale-cache fallback on rate limits
 
@@ -30,29 +31,43 @@ Chinese version:
 
 The workflow supports multiple auth methods (in priority order):
 
-### 1. Session Key (Recommended - most stable)
-
-Session keys from the browser last much longer than OAuth tokens.
-
-1. Open [claude.ai](https://claude.ai) and log in
-2. Open the **EditThisCookie** browser extension (or DevTools → Application → Cookies)
-3. Find the `sessionKey` cookie (starts with `sk-ant-sid...`)
-4. Paste it into the **Session Key** field in the workflow configuration
-
-Alternatively, save it to `~/.claude-session-key`:
-```bash
-echo "sk-ant-sid..." > ~/.claude-session-key
-chmod 600 ~/.claude-session-key
-```
-
-### 2. OAuth Token (Fallback)
+### 1. OAuth Token (Recommended)
 
 - **Auto-detect**: If you've run `claude auth login` (Claude Code CLI), the token is read from macOS Keychain automatically.
 - **Manual**: Paste your OAuth token in the workflow configuration.
 
-### 3. Credentials File
+### 2. Credentials File
 
-The workflow also reads from `~/.claude/.credentials.json` as a last resort.
+The workflow also reads from `~/.claude/.credentials.json`.
+
+### 3. Session Key (Fallback — via Chrome Extension Auto-Sync)
+
+Session keys from the browser are used as a fallback when OAuth is unavailable. A bundled Chrome extension can **automatically sync** the `sessionKey` cookie to a local file, so you never have to copy-paste it manually.
+
+#### Setup the Chrome Extension
+
+1. Open Chrome → `chrome://extensions` → Enable **Developer Mode** (top-right toggle)
+2. Click **Load unpacked** → select the `extension/` folder from this repo
+3. Copy the **Extension ID** shown below the extension name
+4. Run the install script to register the native messaging host:
+
+```bash
+# For Chrome (default):
+./install_bridge.sh <extension_id>
+
+# For other browsers:
+./install_bridge.sh <extension_id> arc
+./install_bridge.sh <extension_id> edge
+./install_bridge.sh <extension_id> brave
+```
+
+5. Done! The extension will automatically sync your `sessionKey` cookie to `~/.claude-session-key` whenever it changes, and on every browser startup.
+
+> **Manual alternative**: You can still set the session key manually — paste it into the **Session Key** field in the workflow configuration, or save it to `~/.claude-session-key`:
+> ```bash
+> echo "sk-ant-sid..." > ~/.claude-session-key
+> chmod 600 ~/.claude-session-key
+> ```
 
 ## Usage
 

@@ -3,10 +3,10 @@
 Alfred Script Filter: Claude Account Usage  (v3 — session key + oauth + i18n)
 
 Auth priority:
-  1. CLAUDE_SESSION_KEY env / ~/.claude-session-key  →  Cookie auth via claude.ai API
-  2. CLAUDE_OAUTH_TOKEN env                          →  Bearer auth via anthropic API
-  3. Claude Code Keychain                            →  Bearer auth (auto-refresh)
-  4. ~/.claude/.credentials.json                     →  Bearer auth (auto-refresh)
+  1. CLAUDE_OAUTH_TOKEN env                          →  Bearer auth via anthropic API
+  2. Claude Code Keychain                            →  Bearer auth (auto-refresh)
+  3. ~/.claude/.credentials.json                     →  Bearer auth (auto-refresh)
+  4. CLAUDE_SESSION_KEY env / ~/.claude-session-key  →  Cookie auth via claude.ai API (fallback)
 """
 
 import base64
@@ -272,6 +272,12 @@ def fetch_org_id(session_key):
     return None
 
 
+def _is_cloudflare_block(body):
+    """Detect Cloudflare challenge pages (not a real auth failure)."""
+    markers = ("Just a moment", "cf-browser-verification", "cloudflare")
+    return any(m in body for m in markers)
+
+
 def fetch_usage_session(session_key):
     org_id = fetch_org_id(session_key)
     if not org_id:
@@ -284,6 +290,8 @@ def fetch_usage_session(session_key):
     except urllib.error.HTTPError as e:
         body = e.read().decode() if e.fp else ""
         if e.code in (401, 403):
+            if _is_cloudflare_block(body):
+                return {"error": "Cloudflare block (403)"}
             try:
                 os.remove(ORG_CACHE_FILE)
             except Exception:
@@ -720,13 +728,7 @@ def fetch_usage_data():
     if cached is not None:
         return cached, True, "cache"
 
-    session_key = get_session_key()
-    if session_key:
-        data = fetch_usage_session(session_key)
-        if "error" not in data:
-            write_usage_cache(data)
-            return data, False, "session"
-
+    # Priority 1: OAuth (via api.anthropic.com — reliable, no Cloudflare)
     oauth_token = obtain_oauth_token()
     if oauth_token:
         data = fetch_usage_oauth(oauth_token)
@@ -749,6 +751,20 @@ def fetch_usage_data():
             if stale:
                 return stale, True, "cache"
             return data, False, None
+
+    # Priority 2: Session key fallback (via claude.ai — may hit Cloudflare)
+    session_key = get_session_key()
+    if session_key:
+        data = fetch_usage_session(session_key)
+        if "error" not in data:
+            write_usage_cache(data)
+            return data, False, "session"
+        # If OAuth was attempted but failed, prefer its error over session key error
+        if oauth_token:
+            return data, False, None
+
+    # No credentials available, or both methods returned errors
+    if oauth_token:
         return data, False, None
 
     return None, False, None
